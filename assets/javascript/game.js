@@ -3,12 +3,9 @@ $(document).ready(function() {
 
 var targetScore = [];
 var userSCore = [];
-var crystals = [red, blue, green, yellow];
 var score = 0;
 var wins = 0;
 var losses = 0;
-var counter = 0;
-
 
 
 // generate random target score
@@ -26,50 +23,78 @@ var counter = 0;
     }
 
 // generate random crystals value
-	var crystalBlue = $('#crystalBlue');
-    var crystalRed = $('#crystalRed');
-    var crystalGreen = $('#crystalGreen');
-    var crystalYellow = $('#crystalYellow');
+	crystals = ["assets/images/red.png", "assets/images/blue.png", "assets/images/yellow.png", "assets/images/green.png"];
 
     randomArray();
 
     function randomArray () {
+      var numbers = [];
         while(arr.length < 4){
-            var randomnumber = Math.ceil(Math.random()*12)
-            
-            if(arr.indexOf(randomnumber) > -1) continue;
-            
-            arr[arr.length] = randomnumber;
+            var randomnumber = getRandomIntInclusive(1,12);
+            var found = false;
+
+           for (var i = 0; i < numbers.length; i++) {
+                if (numbers[i] === randomnumber) {
+                found = true; break
+                }
+            }
+            if (!found) {
+              numbers[numbers.length] = randomnumber;
+            }
         }
 
-        crystalBlue.attr('data-crystalvalue', arr[0]);
-        crystalRed.attr('data-crystalvalue', arr[1]);
-        crystalGreen.attr('data-crystalvalue', arr[2]);
-        crystalYellow.attr('data-crystalvalue', arr[3]);
+		for (i = 0; i < numbers.length; i++) {
+          var imageCrystal = $('<img>');
+          imageCrystal.attr('data-num', numbers[i]);
+          imageCrystal.attr('src', crystals[i]);
+          imageCrystal.attr('alt', 'crystals');
+          imageCrystal.addClass('crystalImage')
+          $('#crystals').append(imageCrystal);
+        }
+	}
+  });
 
-        
+  // start game
+  	function newGame() {
+
+     userScore = 0;
+      $("#userScore").text(userScore);
+
+     randScore();
+
+     $(".value").text(targetScore);
+
+     $(".crystalImage").on("click", function() {
+        userScore = userScore + parseInt($(this).data("num"));
+      
+     $("#userScore").text(userScore);
+          if (userScore == targetScore) {
+              $("#status").text("YOU WON!!!");
+              wins++;
+              $("#win").text(wins);
+              console.log(wins);
+              $("#crystals").empty();
+              randomArray();
+              newGame();
+          } else if (userScore >= targetScore) {
+              $("status").text("You Lose :(");
+              losses++;
+              $("#loss").text(losses);
+              console.log(losses);
+              $("#crystals").empty();
+              randomArray();
+              newGame();
+          } else if (userScore <= targetScore) {
+              console.log(userScore);
+             }
+
+		});
+
+        console.log("User Score is : " + userScore);
+
     };
-
-	for (var i = 0; i < crystals.length; i++) {
-	}	
-
-	$("crystals").on("click", function() {
-
-	var crystalsValue = ($(this).attr("data-crystalvalue"));
-    crystalValue = parseInt(crystalValue);
+   
+    
 
 
-    counter += crystalValue;
-
-
-    	if (counter === targetNumber) {
-      		alert("You win!"); wins++;
-    	}
-
-  		else if (counter >= targetNumber) {
- 	 		alert("You lose!!"); losses++;
-  		}
-	});
-	
-});
 
