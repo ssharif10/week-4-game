@@ -1,0 +1,48 @@
+#header {
+	background-color: #4aaaa5;
+	color: white;
+	margin: 10px;
+	margin-left: 0px;
+	margin-bottom: 20px;
+}
+
+.container {
+	font-family: 'Georgia', Times, Times New Roman, serif;
+}
+
+#instructions {
+	color: blue;
+}
+
+#targetScore {
+	background-color: orange;
+	margin: 10px;
+	margin-left: 0px;
+}
+
+#scoreBox {
+	background-color: #4aaaa5;
+	color: white;
+	font-size: 17px;
+	margin-top: 10px;
+	height: 150%;
+}
+
+#message {
+	background-color: yellow;
+	height: 60%;
+	font-size: 17px;
+
+}
+
+#userScore {
+	background-color: yellow;
+	height: 60%;
+}
+
+.thumbnail {
+	height: 100%;
+}
+
+
+
